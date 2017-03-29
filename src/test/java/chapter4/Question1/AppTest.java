@@ -15,7 +15,8 @@ public class AppTest
 
 {
 
-    private FireType fireType;
+    private FireType fireType1;
+    private FireType fireType2;
 
    @Before
    public void setUp()
@@ -42,41 +43,49 @@ public void testCharacterInstance() throws Exception {
     }
 
     @Before
-    public void testtest() throws Exception {
+    public void testBean1() throws Exception {
 
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        fireType = (FireType) ctx.getBean("firetypeint");
+        fireType1 = (FireType) ctx.getBean("firetypeint1");
+
+    }
+
+    @Before
+    public void testBean2() throws Exception {
+
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        fireType2 = (FireType) ctx.getBean("firetypeint2");
 
     }
 
    @org.junit.Test
     public void testGetHealth() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+       Mage mage = new Mage(50, 50, new Character(50,50,50));
 
-        Assert.assertEquals(50, character.getHealth());
+        Assert.assertEquals(50, mage.getCharacter().getHealth());
     }
 
     @org.junit.Test
     public void testGetExtraHealth() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+        Mage mage = new Mage(50, 50, new Character(50,50,50));
 
-        Assert.assertEquals(25, character.getExtraHealth());
+        Assert.assertEquals(50, mage.getExtraHealth());
     }
 
     @org.junit.Test
     public void testTotalHealth() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+        Mage mage = new Mage(50, 50, new Character(50,50,50));
 
-        Assert.assertEquals(75, (character.getHealth() + character.getExtraHealth()));
+        Assert.assertEquals(100, (mage.getCharacter().getHealth() + mage.getExtraHealth()));
     }
 
     @org.junit.Test
     public void testAttack() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+        Character character = new Character(50,50,50);
 
         Assert.assertEquals(50, character.getAttack());
     }
@@ -84,17 +93,84 @@ public void testCharacterInstance() throws Exception {
     @org.junit.Test
     public void testGetEnhancedAttack() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+        Mage mage = new Mage(50, 50,new Character(50,50,50));
 
-        Assert.assertEquals(75, character.getBurn() + character.getHealth());
+        Assert.assertEquals(125, mage.getBurn() + mage.getCharacter().getAttack());
     }
 
     @org.junit.Test
     public void testMana() throws Exception {
 
-        Character character = new Character(50, 50, 50);
+        Mage mage = new Mage(50, 50,new Character(50,50,50));
 
-        Assert.assertEquals(100, character.getMana());
+        Assert.assertEquals(50, mage.getMana());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @org.junit.Test
+    public void testGetHealth2() throws Exception {
+
+        Warrior warrior = new Warrior(50, 50, new Character(50,50,50));
+
+        Assert.assertEquals(50, warrior.getCharacter().getHealth());
+    }
+
+    @org.junit.Test
+    public void testGetExtraDefence() throws Exception {
+
+        Warrior warrior = new Warrior(50, 50, new Character(50,50,50));
+
+        Assert.assertEquals(50, warrior.getExtraDefence());
+    }
+
+    @org.junit.Test
+    public void testTotalDefence() throws Exception {
+
+        Warrior warrior = new Warrior(50, 50, new Character(50,50,50));
+
+        Assert.assertEquals(100, (warrior.getCharacter().getDefence() + warrior.getExtraDefence()));
+    }
+
+    @org.junit.Test
+    public void testAttack2() throws Exception {
+
+        Character character = new Character(50,50,50);
+
+        Assert.assertEquals(50, character.getAttack());
+    }
+
+    @org.junit.Test
+    public void testGetEnhancedAttack2() throws Exception {
+
+        Warrior warrior = new Warrior(50, 50, new Character(50,50,50));
+
+        Assert.assertEquals(125, warrior.getBurn() + warrior.getCharacter().getAttack());
+    }
+
+    @org.junit.Test
+    public void testStamina() throws Exception {
+
+        Warrior warrior = new Warrior(50, 50, new Character(50,50,50));
+
+        Assert.assertEquals(50, warrior.getStamina());
     }
 
 
